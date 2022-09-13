@@ -112,6 +112,7 @@ public abstract class AbstractTrustyExplainabilityEnd2EndIT {
     private static final String TRUSTY_SERVICE_OIDC_AUTH_SERVER_URL_VALUE = "http://" + KEYCLOAK_ALIAS + ":8080/auth/realms/kogito";
     private static final String TRUSTY_SERVICE_OIDC_CLIENT_ID_VARIABLE = "QUARKUS_OIDC_CLIENT_ID";
     private static final String TRUSTY_SERVICE_OIDC_CLIENT_ID_VALUE = "kogito-trusty-service";
+    public static final String EXECUTIONS_DECISIONS = "\"/executions/decisions/\"";
 
     private final BiFunction<String, String, KogitoServiceContainer> kogitoServiceContainerProducer;
 
@@ -223,7 +224,7 @@ public abstract class AbstractTrustyExplainabilityEnd2EndIT {
                             SalienciesResponse salienciesResponse = given()
                                     .port(trustyService.getFirstMappedPort())
                                     .auth().oauth2(accessToken)
-                                    .when().get("/executions/decisions/" + executionId + "/explanations/saliencies")
+                                    .when().get(EXECUTIONS_DECISIONS + executionId + "/explanations/saliencies")
                                     .then().statusCode(200)
                                     .extract().as(SalienciesResponse.class);
 
@@ -254,7 +255,7 @@ public abstract class AbstractTrustyExplainabilityEnd2EndIT {
         DecisionStructuredInputsResponse inputs = given()
                 .port(trustyService.getFirstMappedPort())
                 .auth().oauth2(accessToken)
-                .when().get("/executions/decisions/" + executionId + "/structuredInputs")
+                .when().get(EXECUTIONS_DECISIONS + executionId + "/structuredInputs")
                 .then().statusCode(200)
                 .extract().as(DecisionStructuredInputsResponse.class);
 
@@ -262,7 +263,7 @@ public abstract class AbstractTrustyExplainabilityEnd2EndIT {
         DecisionOutcomesResponse outcomes = given()
                 .port(trustyService.getFirstMappedPort())
                 .auth().oauth2(accessToken)
-                .when().get("/executions/decisions/" + executionId + "/outcomes")
+                .when().get(EXECUTIONS_DECISIONS + executionId + "/outcomes")
                 .then().statusCode(200)
                 .extract().as(DecisionOutcomesResponse.class);
 
@@ -300,7 +301,7 @@ public abstract class AbstractTrustyExplainabilityEnd2EndIT {
                     .body(new CounterfactualRequest(
                             outcomes.getOutcomes().stream().map(AbstractTrustyExplainabilityEnd2EndIT::toCounterfactualGoal).collect(Collectors.toList()),
                             inputs.getInputs().stream().map(AbstractTrustyExplainabilityEnd2EndIT::toCounterfactualSearchDomain).collect(Collectors.toList())))
-                    .post("/executions/decisions/" + executionId + "/explanations/counterfactuals")
+                    .post(EXECUTIONS_DECISIONS + executionId + "/explanations/counterfactuals")
                     .then().statusCode(200)
                     .extract().as(CounterfactualRequestResponse.class);
 
@@ -358,7 +359,7 @@ public abstract class AbstractTrustyExplainabilityEnd2EndIT {
                     .auth().oauth2(accessToken)
                     .when()
                     .contentType(ContentType.JSON)
-                    .get("/executions/decisions/" + executionId + "/explanations/counterfactuals")
+                    .get(EXECUTIONS_DECISIONS + executionId + "/explanations/counterfactuals")
                     .then().statusCode(200)
                     .extract().as(CounterfactualRequestResponse[].class));
 
@@ -375,7 +376,7 @@ public abstract class AbstractTrustyExplainabilityEnd2EndIT {
                     .auth().oauth2(accessToken)
                     .when()
                     .contentType(ContentType.JSON)
-                    .get("/executions/decisions/" + executionId + "/explanations/counterfactuals/" + counterfactualId)
+                    .get(EXECUTIONS_DECISIONS + executionId + "/explanations/counterfactuals/" + counterfactualId)
                     .then().statusCode(200)
                     .extract().as(CounterfactualResultsResponse.class);
 
