@@ -78,6 +78,9 @@ public class KogitoRuntimeClientImpl implements KogitoRuntimeClient {
     public static final String DELETE_USER_TASK_INSTANCE_ATTACHMENT_PATH = "/%s/%s/%s/%s/attachments/%s";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KogitoRuntimeClientImpl.class);
+    public static final String FROM_PROCESS_INSTANCE_WITH_ID = "from ProcessInstance with id: ";
+    public static final String WITH_ID = " with id: ";
+    public static final String WITH_TASKID = "  with taskid: ";
     private Vertx vertx;
     private SecurityIdentity identity;
     protected Map<String, WebClient> serviceWebClientMap = new HashMap<>();
@@ -160,7 +163,7 @@ public class KogitoRuntimeClientImpl implements KogitoRuntimeClient {
         String requestURI = format(TRIGGER_NODE_INSTANCE_PATH, processInstance.getProcessId(), processInstance.getId(), nodeDefinitionId);
         return sendPostClientRequest(getWebClient(serviceURL), requestURI,
                 "Trigger Node " + nodeDefinitionId +
-                        "from ProcessInstance with id: " + processInstance.getId());
+                        FROM_PROCESS_INSTANCE_WITH_ID + processInstance.getId());
     }
 
     @Override
@@ -168,7 +171,7 @@ public class KogitoRuntimeClientImpl implements KogitoRuntimeClient {
         String requestURI = format(RETRIGGER_NODE_INSTANCE_PATH, processInstance.getProcessId(), processInstance.getId(), nodeInstanceId);
         return sendPostClientRequest(getWebClient(serviceURL), requestURI,
                 "Retrigger NodeInstance " + nodeInstanceId +
-                        "from ProcessInstance with id: " + processInstance.getId());
+                        FROM_PROCESS_INSTANCE_WITH_ID + processInstance.getId());
     }
 
     @Override
@@ -176,7 +179,7 @@ public class KogitoRuntimeClientImpl implements KogitoRuntimeClient {
         String requestURI = format(CANCEL_NODE_INSTANCE_PATH, processInstance.getProcessId(), processInstance.getId(), nodeInstanceId);
         return sendDeleteClientRequest(getWebClient(serviceURL), requestURI,
                 "Cancel NodeInstance " + nodeInstanceId +
-                        "from ProcessInstance with id: " + processInstance.getId());
+                        FROM_PROCESS_INSTANCE_WITH_ID + processInstance.getId());
     }
 
     @Override
@@ -197,7 +200,7 @@ public class KogitoRuntimeClientImpl implements KogitoRuntimeClient {
         String requestURI = format(GET_TASK_SCHEMA_PATH, userTaskInstance.getProcessId(), userTaskInstance.getProcessInstanceId(),
                 userTaskInstance.getName(), userTaskInstance.getId()) + "?" + getUserGroupsURIParameter(user, groups);
         return sendGetClientRequest(getWebClient(serviceURL), requestURI,
-                "Get User Task schema for task:" + userTaskInstance.getName() + " with id: " + userTaskInstance.getId(),
+                "Get User Task schema for task:" + userTaskInstance.getName() + WITH_ID + userTaskInstance.getId(),
                 null);
     }
 
@@ -207,7 +210,7 @@ public class KogitoRuntimeClientImpl implements KogitoRuntimeClient {
         String requestURI = format(UPDATE_USER_TASK_INSTANCE_PATH, userTaskInstance.getProcessId(), userTaskInstance.getProcessInstanceId(),
                 userTaskInstance.getId()) + "?" + getUserGroupsURIParameter(user, groups);
         return sendPatchClientRequest(getWebClient(serviceURL), requestURI,
-                "Update user task instance:" + userTaskInstance.getName() + " with id: " + userTaskInstance.getId(),
+                "Update user task instance:" + userTaskInstance.getName() + WITH_ID + userTaskInstance.getId(),
                 new JsonObject(taskInfo));
     }
 
@@ -216,7 +219,7 @@ public class KogitoRuntimeClientImpl implements KogitoRuntimeClient {
         String requestURI = format(CREATE_USER_TASK_INSTANCE_COMMENT_PATH, userTaskInstance.getProcessId(), userTaskInstance.getProcessInstanceId(), userTaskInstance.getName(),
                 userTaskInstance.getId()) + "?" + getUserGroupsURIParameter(user, groups);
         return sendPostWithBodyClientRequest(getWebClient(serviceURL), requestURI,
-                "Adding comment to  UserTask:" + userTaskInstance.getName() + " with id: " + userTaskInstance.getId(),
+                "Adding comment to  UserTask:" + userTaskInstance.getName() + WITH_ID + userTaskInstance.getId(),
                 commentInfo, MediaType.TEXT_PLAIN);
     }
 
@@ -226,7 +229,7 @@ public class KogitoRuntimeClientImpl implements KogitoRuntimeClient {
                 userTaskInstance.getId(), commentId) + "?" + getUserGroupsURIParameter(user, groups);
         return sendPutClientRequest(getWebClient(serviceURL),
                 requestURI,
-                "Update UserTask: " + userTaskInstance.getName() + " comment:" + commentId + "  with taskid: " + userTaskInstance.getId(),
+                "Update UserTask: " + userTaskInstance.getName() + " comment:" + commentId + WITH_TASKID + userTaskInstance.getId(),
                 commentInfo, MediaType.TEXT_PLAIN);
     }
 
@@ -235,7 +238,7 @@ public class KogitoRuntimeClientImpl implements KogitoRuntimeClient {
         String requestURI = format(DELETE_USER_TASK_INSTANCE_COMMENT_PATH, userTaskInstance.getProcessId(), userTaskInstance.getProcessInstanceId(),
                 userTaskInstance.getName(), userTaskInstance.getId(), commentId) + "?" + getUserGroupsURIParameter(user, groups);
         return sendDeleteClientRequest(getWebClient(serviceURL), requestURI,
-                "Delete comment : " + commentId + "of Task: " + userTaskInstance.getName() + "  with taskid: " + userTaskInstance.getId());
+                "Delete comment : " + commentId + "of Task: " + userTaskInstance.getName() + WITH_TASKID + userTaskInstance.getId());
     }
 
     @Override
@@ -243,7 +246,7 @@ public class KogitoRuntimeClientImpl implements KogitoRuntimeClient {
         String requestURI = format(CREATE_USER_TASK_INSTANCE_ATTACHMENT_PATH, userTaskInstance.getProcessId(), userTaskInstance.getProcessInstanceId(), userTaskInstance.getName(),
                 userTaskInstance.getId()) + "?" + getUserGroupsURIParameter(user, groups);
         return sendPostWithBodyClientRequest(getWebClient(serviceURL), requestURI,
-                "Adding attachment to  UserTask:" + userTaskInstance.getName() + " with id: " + userTaskInstance.getId(),
+                "Adding attachment to  UserTask:" + userTaskInstance.getName() + WITH_ID + userTaskInstance.getId(),
                 "{ \"name\": \"" + name + "\", \"uri\": \"" + uri + "\" }", MediaType.APPLICATION_JSON);
     }
 
@@ -264,7 +267,7 @@ public class KogitoRuntimeClientImpl implements KogitoRuntimeClient {
         String requestURI = format(DELETE_USER_TASK_INSTANCE_ATTACHMENT_PATH, userTaskInstance.getProcessId(), userTaskInstance.getProcessInstanceId(),
                 userTaskInstance.getName(), userTaskInstance.getId(), attachmentId) + "?" + getUserGroupsURIParameter(user, groups);
         return sendDeleteClientRequest(getWebClient(serviceURL), requestURI,
-                "Delete attachment : " + attachmentId + "of Task: " + userTaskInstance.getName() + "  with taskid: " + userTaskInstance.getId());
+                "Delete attachment : " + attachmentId + "of Task: " + userTaskInstance.getName() + WITH_TASKID + userTaskInstance.getId());
     }
 
     private String getUserGroupsURIParameter(String user, List<String> groups) {
