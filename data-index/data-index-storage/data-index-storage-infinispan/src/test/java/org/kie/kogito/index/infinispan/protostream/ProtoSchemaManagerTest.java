@@ -107,9 +107,9 @@ class ProtoSchemaManagerTest {
 
         protoSchemaManager.onSchemaRegisteredEvent(event);
 
-        verify(protoSchemaAcceptor).accept(eq(schemaType));
-        verify(protobufCache).put(eq(name), eq(content));
-        verify(processIdModelCache).put(eq(processId), eq(processType));
+        verify(protoSchemaAcceptor).accept(schemaType);
+        verify(protobufCache).put(name, content);
+        verify(processIdModelCache).put(processId, processType);
         verify(remoteCacheManagerAdmin).getOrCreateCache(eq(processId + "_domain"), any(BasicConfiguration.class));
         verify(cacheManager).getDomainModelCacheName(processId);
         verify(cacheTemplate).data("cache_name", processId + "_domain");
@@ -127,13 +127,13 @@ class ProtoSchemaManagerTest {
         SchemaType schemaType = new SchemaType(ProtoSchemaAcceptor.PROTO_SCHEMA_TYPE);
         SchemaRegisteredEvent event = new SchemaRegisteredEvent(schemaDescriptor, schemaType);
 
-        when(protobufCache.containsKey(eq(ProtobufMetadataManagerConstants.ERRORS_KEY_SUFFIX))).thenReturn(true);
-        when(protobufCache.get(eq(ProtobufMetadataManagerConstants.ERRORS_KEY_SUFFIX))).thenReturn("testError");
+        when(protobufCache.containsKey(ProtobufMetadataManagerConstants.ERRORS_KEY_SUFFIX)).thenReturn(true);
+        when(protobufCache.get(ProtobufMetadataManagerConstants.ERRORS_KEY_SUFFIX)).thenReturn("testError");
 
         assertThrows(SchemaRegistrationException.class, () -> protoSchemaManager.onSchemaRegisteredEvent(event));
 
-        verify(protoSchemaAcceptor).accept(eq(schemaType));
-        verify(protobufCache).put(eq(name), eq(content));
-        verify(processIdModelCache).put(eq(processId), eq(processType));
+        verify(protoSchemaAcceptor).accept(schemaType);
+        verify(protobufCache).put(name, content);
+        verify(processIdModelCache).put(processId, processType);
     }
 }

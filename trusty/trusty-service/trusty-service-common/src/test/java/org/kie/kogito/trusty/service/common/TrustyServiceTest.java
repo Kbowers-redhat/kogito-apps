@@ -150,7 +150,7 @@ public class TrustyServiceTest {
 
         Storage storageMock = mock(Storage.class);
         when(storageMock.put(eq(TEST_EXECUTION_ID), any(Object.class))).thenReturn(decision);
-        when(storageMock.containsKey(eq(TEST_EXECUTION_ID))).thenReturn(false);
+        when(storageMock.containsKey(TEST_EXECUTION_ID)).thenReturn(false);
         when(storageMock.query()).thenReturn(queryMock);
 
         when(trustyStorageServiceMock.getDecisionsStorage()).thenReturn(storageMock);
@@ -181,7 +181,7 @@ public class TrustyServiceTest {
         Storage storageMock = mock(Storage.class);
         decisions.forEach(x -> {
             when(storageMock.put(eq(x.getExecutionId()), any(Object.class))).thenReturn(x);
-            when(storageMock.containsKey(eq(x.getExecutionId()))).thenReturn(false);
+            when(storageMock.containsKey(x.getExecutionId())).thenReturn(false);
         });
         when(storageMock.query()).thenReturn(queryMock);
 
@@ -263,7 +263,7 @@ public class TrustyServiceTest {
                                 Collections.emptyList(), Collections.emptyList())));
 
         Storage<String, Decision> decisionStorageMock = mock(Storage.class);
-        when(decisionStorageMock.containsKey(eq(TEST_EXECUTION_ID))).thenReturn(false);
+        when(decisionStorageMock.containsKey(TEST_EXECUTION_ID)).thenReturn(false);
 
         when(trustyStorageServiceMock.getDecisionsStorage()).thenReturn(decisionStorageMock);
 
@@ -281,7 +281,7 @@ public class TrustyServiceTest {
         decision.setExecutionId(TEST_EXECUTION_ID);
 
         Storage<String, Decision> decisionStorageMock = mock(Storage.class);
-        when(decisionStorageMock.containsKey(eq(TEST_EXECUTION_ID))).thenReturn(true);
+        when(decisionStorageMock.containsKey(TEST_EXECUTION_ID)).thenReturn(true);
 
         when(trustyStorageServiceMock.getDecisionsStorage()).thenReturn(decisionStorageMock);
 
@@ -367,7 +367,7 @@ public class TrustyServiceTest {
         LIMEExplainabilityResult result = new LIMEExplainabilityResult(TEST_EXECUTION_ID, ExplainabilityStatus.SUCCEEDED, null, Collections.emptyList());
         Storage<String, LIMEExplainabilityResult> storageMock = mock(Storage.class);
 
-        when(storageMock.containsKey(eq(TEST_EXECUTION_ID))).thenReturn(true);
+        when(storageMock.containsKey(TEST_EXECUTION_ID)).thenReturn(true);
         when(storageMock.put(eq(TEST_EXECUTION_ID), any(LIMEExplainabilityResult.class))).thenReturn(result);
         when(trustyStorageServiceMock.getLIMEResultStorage()).thenReturn(storageMock);
 
@@ -393,7 +393,7 @@ public class TrustyServiceTest {
     void givenAnExplainabilityResultNotStoredWhenRetrievedByIdThenExceptionIsThrown() {
         Storage<String, LIMEExplainabilityResult> storageMock = mock(Storage.class);
 
-        when(storageMock.containsKey(eq(TEST_EXECUTION_ID))).thenReturn(false);
+        when(storageMock.containsKey(TEST_EXECUTION_ID)).thenReturn(false);
         when(trustyStorageServiceMock.getLIMEResultStorage()).thenReturn(storageMock);
 
         assertThrows(IllegalArgumentException.class, () -> trustyService.getExplainabilityResultById(TEST_EXECUTION_ID, LIMEExplainabilityResult.class));
@@ -404,7 +404,7 @@ public class TrustyServiceTest {
     void givenNoStoredExecutionWhenCounterfactualRequestIsMadeThenExceptionIsThrown() {
         Storage<String, Decision> decisionStorage = mock(Storage.class);
 
-        when(decisionStorage.containsKey(eq(TEST_EXECUTION_ID))).thenReturn(false);
+        when(decisionStorage.containsKey(TEST_EXECUTION_ID)).thenReturn(false);
         when(trustyStorageServiceMock.getDecisionsStorage()).thenReturn(decisionStorage);
 
         assertThrows(IllegalArgumentException.class, () -> trustyService.requestCounterfactuals(TEST_EXECUTION_ID, Collections.emptyList(), Collections.emptyList()));
@@ -426,10 +426,10 @@ public class TrustyServiceTest {
         Storage<String, CounterfactualExplainabilityRequest> counterfactualStorage = mock(Storage.class);
         ArgumentCaptor<CounterfactualExplainabilityRequest> counterfactualArgumentCaptor = ArgumentCaptor.forClass(CounterfactualExplainabilityRequest.class);
 
-        when(decisionStorage.containsKey(eq(TEST_EXECUTION_ID))).thenReturn(true);
+        when(decisionStorage.containsKey(TEST_EXECUTION_ID)).thenReturn(true);
         when(trustyStorageServiceMock.getDecisionsStorage()).thenReturn(decisionStorage);
         when(trustyStorageServiceMock.getCounterfactualRequestStorage()).thenReturn(counterfactualStorage);
-        when(decisionStorage.get(eq(TEST_EXECUTION_ID))).thenReturn(TrustyServiceTestUtils.buildCorrectDecision(TEST_EXECUTION_ID));
+        when(decisionStorage.get(TEST_EXECUTION_ID)).thenReturn(TrustyServiceTestUtils.buildCorrectDecision(TEST_EXECUTION_ID));
 
         // The Goals structures must be comparable to the original decisions outcomes.
         // The Search Domain structures must be identical those of the original decision inputs.
@@ -472,10 +472,10 @@ public class TrustyServiceTest {
         Storage<String, CounterfactualExplainabilityRequest> counterfactualStorage = mock(Storage.class);
         ArgumentCaptor<BaseExplainabilityRequest> explainabilityEventArgumentCaptor = ArgumentCaptor.forClass(BaseExplainabilityRequest.class);
 
-        when(decisionStorage.containsKey(eq(TEST_EXECUTION_ID))).thenReturn(true);
+        when(decisionStorage.containsKey(TEST_EXECUTION_ID)).thenReturn(true);
         when(trustyStorageServiceMock.getDecisionsStorage()).thenReturn(decisionStorage);
         when(trustyStorageServiceMock.getCounterfactualRequestStorage()).thenReturn(counterfactualStorage);
-        when(decisionStorage.get(eq(TEST_EXECUTION_ID))).thenReturn(TrustyServiceTestUtils.buildCorrectDecision(TEST_EXECUTION_ID));
+        when(decisionStorage.get(TEST_EXECUTION_ID)).thenReturn(TrustyServiceTestUtils.buildCorrectDecision(TEST_EXECUTION_ID));
 
         // The Goals structures must be comparable to the original decisions outcomes.
         // The Search Domain structures must be identical those of the original decision inputs.
@@ -527,10 +527,10 @@ public class TrustyServiceTest {
                                 new UnitValue("integer", "integer", new IntNode(1000)),
                                 Collections.emptyList(), Collections.emptyList())));
 
-        when(decisionStorage.containsKey(eq(TEST_EXECUTION_ID))).thenReturn(true);
+        when(decisionStorage.containsKey(TEST_EXECUTION_ID)).thenReturn(true);
         when(trustyStorageServiceMock.getDecisionsStorage()).thenReturn(decisionStorage);
         when(trustyStorageServiceMock.getCounterfactualRequestStorage()).thenReturn(counterfactualStorage);
-        when(decisionStorage.get(eq(TEST_EXECUTION_ID))).thenReturn(decision);
+        when(decisionStorage.get(TEST_EXECUTION_ID)).thenReturn(decision);
 
         trustyService.requestCounterfactuals(TEST_EXECUTION_ID,
                 List.of(new NamedTypedValue("salary",

@@ -412,7 +412,7 @@ class DecisionsApiV1IT {
     }
 
     private void mockServiceWithDecision(ListStatus inputsStatus, ListStatus outcomesStatus) throws Exception {
-        when(trustyService.getDecisionById(eq(TEST_EXECUTION_ID))).thenReturn(buildValidDecision(inputsStatus,
+        when(trustyService.getDecisionById(TEST_EXECUTION_ID)).thenReturn(buildValidDecision(inputsStatus,
                 outcomesStatus));
     }
 

@@ -49,7 +49,7 @@ public class MockIndexCreateOrUpdateEventListener {
     }
 
     public void assertFire(String collection, String index) {
-        verify(collections, times(1)).add(eq(collection));
-        verify(indexes, times(1)).add(eq(index));
+        verify(collections, times(1)).add(collection);
+        verify(indexes, times(1)).add(index);
     }
 }

@@ -88,7 +88,7 @@ public class LocalExplainerServiceHandlerRegistryTest {
 
         registry.explainAsyncWithResults(request, callback);
 
-        verify(limeExplainerServiceHandler).explainAsyncWithResults(eq(request), eq(callback));
+        verify(limeExplainerServiceHandler).explainAsyncWithResults(request, callback);
     }
 
     @Test
@@ -104,7 +104,7 @@ public class LocalExplainerServiceHandlerRegistryTest {
 
         registry.explainAsyncWithResults(request, callback);
 
-        verify(counterfactualExplainerServiceHandler).explainAsyncWithResults(eq(request), eq(callback));
+        verify(counterfactualExplainerServiceHandler).explainAsyncWithResults(request, callback);
     }
 
 }

@@ -76,21 +76,21 @@ public class ExplainerServiceHandlerRegistryTest {
 
     @Test
     public void testLIME_getExplainabilityResultById() {
-        when(storageLIME.containsKey(eq(EXECUTION_ID))).thenReturn(true);
+        when(storageLIME.containsKey(EXECUTION_ID)).thenReturn(true);
 
         registry.getExplainabilityResultById(EXECUTION_ID, LIMEExplainabilityResult.class);
 
-        verify(limeExplainerServiceHandler).getExplainabilityResultById(eq(EXECUTION_ID));
+        verify(limeExplainerServiceHandler).getExplainabilityResultById(EXECUTION_ID);
     }
 
     @Test
     public void testLIME_storeExplainabilityResult() {
-        when(storageLIME.containsKey(eq(EXECUTION_ID))).thenReturn(false);
+        when(storageLIME.containsKey(EXECUTION_ID)).thenReturn(false);
         LIMEExplainabilityResult result = mock(LIMEExplainabilityResult.class);
 
         registry.storeExplainabilityResult(EXECUTION_ID, result);
 
-        verify(limeExplainerServiceHandler).storeExplainabilityResult(eq(EXECUTION_ID), eq(result));
+        verify(limeExplainerServiceHandler).storeExplainabilityResult(EXECUTION_ID, result);
     }
 
     @Test
@@ -99,14 +99,14 @@ public class ExplainerServiceHandlerRegistryTest {
         Query query = mock(Query.class);
         CounterfactualExplainabilityResult result = mock(CounterfactualExplainabilityResult.class);
         when(result.getStage()).thenReturn(CounterfactualExplainabilityResult.Stage.FINAL);
-        when(storageCounterfactual.containsKey(eq(EXECUTION_ID))).thenReturn(true);
+        when(storageCounterfactual.containsKey(EXECUTION_ID)).thenReturn(true);
         when(storageCounterfactual.query()).thenReturn(query);
         when(query.filter(any())).thenReturn(query);
         when(query.execute()).thenReturn(List.of(result));
 
         CounterfactualExplainabilityResult actual = registry.getExplainabilityResultById(EXECUTION_ID, CounterfactualExplainabilityResult.class);
 
-        verify(counterfactualExplainerServiceHandler).getExplainabilityResultById(eq(EXECUTION_ID));
+        verify(counterfactualExplainerServiceHandler).getExplainabilityResultById(EXECUTION_ID);
         assertEquals(result, actual);
     }
 
@@ -116,7 +116,7 @@ public class ExplainerServiceHandlerRegistryTest {
         Query query = mock(Query.class);
         CounterfactualExplainabilityResult result = mock(CounterfactualExplainabilityResult.class);
         when(result.getStage()).thenReturn(CounterfactualExplainabilityResult.Stage.INTERMEDIATE);
-        when(storageCounterfactual.containsKey(eq(EXECUTION_ID))).thenReturn(true);
+        when(storageCounterfactual.containsKey(EXECUTION_ID)).thenReturn(true);
         when(storageCounterfactual.query()).thenReturn(query);
         when(query.filter(any())).thenReturn(query);
         when(query.execute()).thenReturn(List.of(result));
@@ -132,24 +132,24 @@ public class ExplainerServiceHandlerRegistryTest {
         CounterfactualExplainabilityResult result2 = mock(CounterfactualExplainabilityResult.class);
         when(result1.getStage()).thenReturn(CounterfactualExplainabilityResult.Stage.INTERMEDIATE);
         when(result2.getStage()).thenReturn(CounterfactualExplainabilityResult.Stage.FINAL);
-        when(storageCounterfactual.containsKey(eq(EXECUTION_ID))).thenReturn(true);
+        when(storageCounterfactual.containsKey(EXECUTION_ID)).thenReturn(true);
         when(storageCounterfactual.query()).thenReturn(query);
         when(query.filter(any())).thenReturn(query);
         when(query.execute()).thenReturn(List.of(result1, result2));
 
         CounterfactualExplainabilityResult actual = registry.getExplainabilityResultById(EXECUTION_ID, CounterfactualExplainabilityResult.class);
 
-        verify(counterfactualExplainerServiceHandler).getExplainabilityResultById(eq(EXECUTION_ID));
+        verify(counterfactualExplainerServiceHandler).getExplainabilityResultById(EXECUTION_ID);
         assertEquals(result2, actual);
     }
 
     @Test
     public void testCounterfactual_storeExplainabilityResult() {
-        when(storageCounterfactual.containsKey(eq(EXECUTION_ID))).thenReturn(false);
+        when(storageCounterfactual.containsKey(EXECUTION_ID)).thenReturn(false);
         CounterfactualExplainabilityResult result = mock(CounterfactualExplainabilityResult.class);
 
         registry.storeExplainabilityResult(EXECUTION_ID, result);
 
-        verify(counterfactualExplainerServiceHandler).storeExplainabilityResult(eq(EXECUTION_ID), eq(result));
+        verify(counterfactualExplainerServiceHandler).storeExplainabilityResult(EXECUTION_ID, result);
     }
 }

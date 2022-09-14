@@ -266,7 +266,7 @@ public class LimeExplainerServiceHandlerTest {
 
         handler.explainAsync(prediction, predictionProvider, callback);
 
-        verify(explainer).explainAsync(eq(prediction), eq(predictionProvider), eq(callback));
+        verify(explainer).explainAsync(prediction, predictionProvider, callback);
     }
 
 }

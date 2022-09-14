@@ -46,7 +46,7 @@ public class LIMEExplainerServiceHandlerTest extends BaseExplainerServiceHandler
     @Override
     public void testGetExplainabilityResultById_WhenStored() {
         when(storage.containsKey(anyString())).thenReturn(true);
-        when(storage.get(eq(EXECUTION_ID))).thenReturn(result);
+        when(storage.get(EXECUTION_ID)).thenReturn(result);
 
         assertEquals(result, handler.getExplainabilityResultById(EXECUTION_ID));
     }
@@ -74,6 +74,6 @@ public class LIMEExplainerServiceHandlerTest extends BaseExplainerServiceHandler
 
         handler.storeExplainabilityResult(EXECUTION_ID, result);
 
-        verify(storage).put(eq(EXECUTION_ID), eq(result));
+        verify(storage).put(EXECUTION_ID, result);
     }
 }

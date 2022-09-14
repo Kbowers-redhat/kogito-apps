@@ -166,7 +166,7 @@ class ExplainabilityApiV1IT {
                 new UnitValue("type2", new IntNode(2)),
                 Collections.emptyList(),
                 Collections.emptyList()));
-        when(executionService.getDecisionById(eq(TEST_EXECUTION_ID))).thenReturn(decision);
+        when(executionService.getDecisionById(TEST_EXECUTION_ID)).thenReturn(decision);
 
         SalienciesResponse response = given().filter(new ResponseLoggingFilter())
                 .when().get("/executions/decisions/" + TEST_EXECUTION_ID + "/explanations/saliencies")
@@ -468,12 +468,12 @@ class ExplainabilityApiV1IT {
     private void mockServiceWithCounterfactualRequest() {
         when(executionService.requestCounterfactuals(eq(TEST_EXECUTION_ID), any(), any()))
                 .thenReturn(buildValidCounterfactual());
-        when(executionService.getCounterfactualRequest(eq(TEST_EXECUTION_ID), eq(TEST_COUNTERFACTUAL_ID)))
+        when(executionService.getCounterfactualRequest(TEST_EXECUTION_ID, TEST_COUNTERFACTUAL_ID))
                 .thenReturn(buildValidCounterfactual());
     }
 
     private void mockServiceWithCounterfactualResults() {
-        when(executionService.getCounterfactualResults(eq(TEST_EXECUTION_ID), eq(TEST_COUNTERFACTUAL_ID)))
+        when(executionService.getCounterfactualResults(TEST_EXECUTION_ID, TEST_COUNTERFACTUAL_ID))
                 .thenReturn(buildValidCounterfactualResults());
     }
 }

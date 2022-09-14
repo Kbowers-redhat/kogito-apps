@@ -83,8 +83,8 @@ public abstract class AbstractGraphQLRuntimesQueriesIT extends AbstractIndexingI
 
         checkOkResponse("{ \"query\" : \"mutation{ ProcessInstanceAbort ( id: \\\"" + processInstanceId + "\\\")}\"}");
 
-        verify(dataIndexApiClient).abortProcessInstance(eq("http://localhost:8080"),
-                eq(getProcessInstance(processId, processInstanceId, 1, null, null)));
+        verify(dataIndexApiClient).abortProcessInstance("http://localhost:8080",
+                getProcessInstance(processId, processInstanceId, 1, null, null));
     }
 
     @Test
@@ -95,8 +95,8 @@ public abstract class AbstractGraphQLRuntimesQueriesIT extends AbstractIndexingI
 
         checkOkResponse("{ \"query\" : \"mutation{ ProcessInstanceRetry ( id: \\\"" + processInstanceId + "\\\")}\"}");
 
-        verify(dataIndexApiClient).retryProcessInstance(eq("http://localhost:8080"),
-                eq(getProcessInstance(processId, processInstanceId, 1, null, null)));
+        verify(dataIndexApiClient).retryProcessInstance("http://localhost:8080",
+                getProcessInstance(processId, processInstanceId, 1, null, null));
     }
 
     @Test
@@ -107,8 +107,8 @@ public abstract class AbstractGraphQLRuntimesQueriesIT extends AbstractIndexingI
 
         checkOkResponse("{ \"query\" : \"mutation{ ProcessInstanceSkip ( id: \\\"" + processInstanceId + "\\\")}\"}");
 
-        verify(dataIndexApiClient).skipProcessInstance(eq("http://localhost:8080"),
-                eq(getProcessInstance(processId, processInstanceId, 1, null, null)));
+        verify(dataIndexApiClient).skipProcessInstance("http://localhost:8080",
+                getProcessInstance(processId, processInstanceId, 1, null, null));
     }
 
     @Test
@@ -121,8 +121,8 @@ public abstract class AbstractGraphQLRuntimesQueriesIT extends AbstractIndexingI
 
         checkOkResponse("{ \"query\" : \"mutation{ ProcessInstanceUpdateVariables ( id: \\\"" + processInstanceId + "\\\", variables: \\\"" + variablesUpdated + "\\\")}\"}");
 
-        verify(dataIndexApiClient).updateProcessInstanceVariables(eq("http://localhost:8080"),
-                eq(getProcessInstance(processId, processInstanceId, 1, null, null)), eq(variablesUpdated));
+        verify(dataIndexApiClient).updateProcessInstanceVariables("http://localhost:8080",
+                getProcessInstance(processId, processInstanceId, 1, null, null), variablesUpdated);
     }
 
     @Test
@@ -132,8 +132,8 @@ public abstract class AbstractGraphQLRuntimesQueriesIT extends AbstractIndexingI
         indexProcessCloudEvent(startEvent);
 
         checkOkResponse("{ \"query\" : \"query { ProcessInstances (where: { id: {equal: \\\"" + processInstanceId + "\\\"}}) { nodeDefinitions { id }} }\" }");
-        verify(dataIndexApiClient).getProcessInstanceNodeDefinitions(eq("http://localhost:8080"),
-                eq(getProcessInstance(processId, processInstanceId, 1, null, null)));
+        verify(dataIndexApiClient).getProcessInstanceNodeDefinitions("http://localhost:8080",
+                getProcessInstance(processId, processInstanceId, 1, null, null));
     }
 
     @Test
@@ -144,8 +144,8 @@ public abstract class AbstractGraphQLRuntimesQueriesIT extends AbstractIndexingI
 
         checkOkResponse("{ \"query\" : \"query { ProcessInstances (where: { id: {equal: \\\"" + processInstanceId + "\\\"}}) {diagram} }\" }");
 
-        verify(dataIndexApiClient).getProcessInstanceDiagram(eq("http://localhost:8080"),
-                eq(getProcessInstance(processId, processInstanceId, 1, null, null)));
+        verify(dataIndexApiClient).getProcessInstanceDiagram("http://localhost:8080",
+                getProcessInstance(processId, processInstanceId, 1, null, null));
     }
 
     @Test
@@ -156,8 +156,8 @@ public abstract class AbstractGraphQLRuntimesQueriesIT extends AbstractIndexingI
 
         checkOkResponse("{ \"query\" : \"query { ProcessInstances (where: { id: {equal: \\\"" + processInstanceId + "\\\"}}) {source} }\" }");
 
-        verify(dataIndexApiClient).getProcessInstanceSourceFileContent(eq("http://localhost:8080"),
-                eq(getProcessInstance(processId, processInstanceId, 1, null, null)));
+        verify(dataIndexApiClient).getProcessInstanceSourceFileContent("http://localhost:8080",
+                getProcessInstance(processId, processInstanceId, 1, null, null));
     }
 
     @Test
@@ -169,8 +169,8 @@ public abstract class AbstractGraphQLRuntimesQueriesIT extends AbstractIndexingI
 
         checkOkResponse("{ \"query\" : \"mutation{ NodeInstanceTrigger ( id: \\\"" + processInstanceId + "\\\", nodeId: \\\"" + nodeId + "\\\")}\"}");
 
-        verify(dataIndexApiClient).triggerNodeInstance(eq("http://localhost:8080"),
-                eq(getProcessInstance(processId, processInstanceId, 1, null, null)), eq(nodeId));
+        verify(dataIndexApiClient).triggerNodeInstance("http://localhost:8080",
+                getProcessInstance(processId, processInstanceId, 1, null, null), nodeId);
     }
 
     @Test
@@ -182,8 +182,8 @@ public abstract class AbstractGraphQLRuntimesQueriesIT extends AbstractIndexingI
 
         checkOkResponse("{ \"query\" : \"mutation{ NodeInstanceRetrigger ( id: \\\"" + processInstanceId + "\\\", nodeInstanceId: \\\"" + nodeInstanceId + "\\\")}\"}");
 
-        verify(dataIndexApiClient).retriggerNodeInstance(eq("http://localhost:8080"),
-                eq(getProcessInstance(processId, processInstanceId, 1, null, null)), eq(nodeInstanceId));
+        verify(dataIndexApiClient).retriggerNodeInstance("http://localhost:8080",
+                getProcessInstance(processId, processInstanceId, 1, null, null), nodeInstanceId);
     }
 
     @Test
@@ -195,8 +195,8 @@ public abstract class AbstractGraphQLRuntimesQueriesIT extends AbstractIndexingI
 
         checkOkResponse("{ \"query\" : \"mutation{ NodeInstanceCancel ( id: \\\"" + processInstanceId + "\\\", nodeInstanceId: \\\"" + nodeInstanceId + "\\\")}\"}");
 
-        verify(dataIndexApiClient).cancelNodeInstance(eq("http://localhost:8080"),
-                eq(getProcessInstance(processId, processInstanceId, 1, null, null)), eq(nodeInstanceId));
+        verify(dataIndexApiClient).cancelNodeInstance("http://localhost:8080",
+                getProcessInstance(processId, processInstanceId, 1, null, null), nodeInstanceId);
     }
 
     @Test
@@ -209,8 +209,8 @@ public abstract class AbstractGraphQLRuntimesQueriesIT extends AbstractIndexingI
         indexJobCloudEvent(event);
         checkOkResponse("{ \"query\" : \"mutation{ JobCancel ( id: \\\"" + jobId + "\\\")}\"}");
 
-        verify(dataIndexApiClient).cancelJob(eq("http://localhost:8080/jobs"),
-                eq(getJob(jobId, processId, processInstanceId, null, null, "SCHEDULED")));
+        verify(dataIndexApiClient).cancelJob("http://localhost:8080/jobs",
+                getJob(jobId, processId, processInstanceId, null, null, "SCHEDULED"));
     }
 
     @Test
@@ -224,9 +224,9 @@ public abstract class AbstractGraphQLRuntimesQueriesIT extends AbstractIndexingI
         indexJobCloudEvent(event);
         checkOkResponse("{ \"query\" : \"mutation{ JobReschedule ( id: \\\"" + jobId + "\\\", data: \\\"" + data + "\\\")}\"}");
 
-        verify(dataIndexApiClient).rescheduleJob(eq("http://localhost:8080/jobs"),
-                eq(getJob(jobId, processId, processInstanceId, null, null, "SCHEDULED")),
-                eq(data));
+        verify(dataIndexApiClient).rescheduleJob("http://localhost:8080/jobs",
+                getJob(jobId, processId, processInstanceId, null, null, "SCHEDULED"),
+                data);
     }
 
     @Test

@@ -131,7 +131,7 @@ public class CounterfactualExplainerServiceHandlerTest
 
         handler.storeExplainabilityResult(EXECUTION_ID, result);
 
-        verify(storage).put(eq(SOLUTION_ID), eq(result));
-        verify(explainabilityResultsManagerSlidingWindow).purge(eq(COUNTERFACTUAL_ID), eq(storage));
+        verify(storage).put(SOLUTION_ID, result);
+        verify(explainabilityResultsManagerSlidingWindow).purge(COUNTERFACTUAL_ID, storage);
     }
 }

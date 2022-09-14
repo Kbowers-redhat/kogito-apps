@@ -91,7 +91,7 @@ public class LIMESaliencyConverterTest {
                 new UnitValue("type2", new IntNode(2)),
                 Collections.emptyList(),
                 Collections.emptyList()));
-        when(trustyService.getDecisionById(eq(EXECUTION_ID))).thenReturn(decision);
+        when(trustyService.getDecisionById(EXECUTION_ID)).thenReturn(decision);
 
         SalienciesResponse response = converter.fromResult(EXECUTION_ID, result);
 
@@ -153,7 +153,7 @@ public class LIMESaliencyConverterTest {
                 new UnitValue("type2", new IntNode(2)),
                 Collections.emptyList(),
                 Collections.emptyList()));
-        when(trustyService.getDecisionById(eq(EXECUTION_ID))).thenReturn(decision);
+        when(trustyService.getDecisionById(EXECUTION_ID)).thenReturn(decision);
 
         SalienciesResponse response = converter.fromResult(EXECUTION_ID, result);
 
@@ -182,7 +182,7 @@ public class LIMESaliencyConverterTest {
                         new SaliencyModel("outcomeName2",
                                 List.of(new FeatureImportanceModel("feature2", 3.0)))));
 
-        when(trustyService.getDecisionById(eq(EXECUTION_ID))).thenThrow(new IllegalArgumentException());
+        when(trustyService.getDecisionById(EXECUTION_ID)).thenThrow(new IllegalArgumentException());
 
         assertThrows(IllegalArgumentException.class, () -> converter.fromResult(EXECUTION_ID, result));
     }

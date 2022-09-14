@@ -54,7 +54,7 @@ class InfinispanConfigurationTest {
 
         assertThat(tested.isInitialized()).isFalse();
         tested.initializeCaches(new StartupEvent(), instance, initializedEvent);
-        verify(remoteCacheManager).getCache(eq(InfinispanConfiguration.Caches.JOB_DETAILS));
+        verify(remoteCacheManager).getCache(InfinispanConfiguration.Caches.JOB_DETAILS);
 
         verify(initializedEvent).fire(any(InfinispanInitialized.class));
         assertThat(tested.isInitialized()).isTrue();

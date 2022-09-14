@@ -46,6 +46,6 @@ public class MockProcessIndexEventListener {
     }
 
     public void assertFire(String processId, String processType) {
-        verify(mockProcessTypeMapper, times(1)).put(eq(processId), eq(processType));
+        verify(mockProcessTypeMapper, times(1)).put(processId, processType);
     }
 }
