@@ -21,6 +21,7 @@ public class TasksResponse {
     private TaskResponseData data;
 
     public TasksResponse() {
+        //intentionally blank constructor
     }
 
     public TaskResponseData getData() {

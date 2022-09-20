@@ -17,9 +17,14 @@
 package org.kie.kogito.persistence.redis;
 
 public class Sanitizer {
+
     // Special chars to be escaped https://oss.redislabs.com/redisearch/Escaping/
     // asterisk ("*") is valid instead
     private static final String ILLEGAL_CHARS_REGEX = "[,.<>{}\\[\\]\"':;!@#$%^&()\\-+=~ ]";
+
+    private Sanitizer() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static Object sanitize(Object o) {
         if (o instanceof String) {

@@ -29,10 +29,12 @@ public class NodeInstance extends Node {
     @JsonProperty("leaveTime")
     private ZonedDateTime exit;
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }
@@ -53,10 +55,12 @@ public class NodeInstance extends Node {
         this.exit = exit;
     }
 
+    @Override
     public String getNodeId() {
         return nodeId;
     }
 
+    @Override
     public void setNodeId(String nodeId) {
         this.nodeId = nodeId;
     }

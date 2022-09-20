@@ -23,6 +23,10 @@ import org.kie.kogito.jobs.service.model.job.Recipient;
 
 public class JobDetailsValidator {
 
+    private JobDetailsValidator() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static JobDetails validateToCreate(JobDetails job) {
         if (Objects.isNull(job.getPayload())
                 || StringUtils.isEmpty(job.getId())

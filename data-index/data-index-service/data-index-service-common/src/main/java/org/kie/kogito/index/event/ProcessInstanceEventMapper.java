@@ -65,7 +65,7 @@ public class ProcessInstanceEventMapper implements Function<ProcessInstanceDataE
     }
 
     private Function<NodeInstanceEventBody, NodeInstance> nodeInstance() {
-        return (nib) -> {
+        return nib -> {
             NodeInstance ni = new NodeInstance();
             ni.setId(nib.getId());
             ni.setEnter(toZonedDateTime(nib.getTriggerTime()));

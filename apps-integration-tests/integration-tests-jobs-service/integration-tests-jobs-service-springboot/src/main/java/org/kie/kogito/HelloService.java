@@ -21,5 +21,6 @@ import org.springframework.stereotype.Service;
 public class HelloService extends AbstractHelloService {
 
     public HelloService() {
+        //intentionally blank constructor
     }
 }

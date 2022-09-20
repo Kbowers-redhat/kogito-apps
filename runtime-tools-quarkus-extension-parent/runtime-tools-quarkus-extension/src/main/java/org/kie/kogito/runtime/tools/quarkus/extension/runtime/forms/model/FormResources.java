@@ -26,6 +26,7 @@ public class FormResources {
     private Map<String, String> styles = new LinkedHashMap<>();
 
     public FormResources() {
+        //intentionally blank constructor
     }
 
     public Map<String, String> getScripts() {

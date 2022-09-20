@@ -20,6 +20,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import org.kie.kogito.explainability.api.BaseExplainabilityResult;
 import org.kie.kogito.explainability.api.CounterfactualExplainabilityResult;
 import org.kie.kogito.persistence.redis.index.RedisCreateIndexEvent;
 import org.kie.kogito.persistence.redis.index.RedisIndexManager;
@@ -93,7 +94,7 @@ public class IndexProvider {
 
     private void createCounterfactualResultsStorageIndex() {
         RedisCreateIndexEvent counterfactualResultsIndexEvent = new RedisCreateIndexEvent(COUNTERFACTUAL_RESULTS_STORAGE);
-        counterfactualResultsIndexEvent.withField(new Schema.Field(CounterfactualExplainabilityResult.EXECUTION_ID_FIELD, Schema.FieldType.FullText, false));
+        counterfactualResultsIndexEvent.withField(new Schema.Field(BaseExplainabilityResult.EXECUTION_ID_FIELD, Schema.FieldType.FullText, false));
         counterfactualResultsIndexEvent.withField(new Schema.Field(CounterfactualExplainabilityResult.COUNTERFACTUAL_ID_FIELD, Schema.FieldType.FullText, false));
         counterfactualResultsIndexEvent.withField(new Schema.Field(CounterfactualExplainabilityResult.COUNTERFACTUAL_SEQUENCE_ID_FIELD, Schema.FieldType.FullText, true));
         indexManager.createIndex(counterfactualResultsIndexEvent);

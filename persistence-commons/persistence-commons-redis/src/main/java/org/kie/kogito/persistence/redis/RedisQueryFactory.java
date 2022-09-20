@@ -25,6 +25,10 @@ import static org.kie.kogito.persistence.redis.Constants.INDEX_NAME_FIELD;
 
 public class RedisQueryFactory {
 
+    private RedisQueryFactory() {
+        throw new IllegalStateException("Utility class");
+    }
+
     static String buildQueryBody(String indexName, List<AttributeFilter<?>> filters) {
         List<String> components = new ArrayList<>();
         components.add(String.format("@%s:%s", INDEX_NAME_FIELD, indexName));

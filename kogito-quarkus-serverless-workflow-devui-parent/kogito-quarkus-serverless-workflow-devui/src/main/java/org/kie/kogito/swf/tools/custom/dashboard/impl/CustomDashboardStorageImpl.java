@@ -130,7 +130,7 @@ public class CustomDashboardStorageImpl implements CustomDashboardStorage {
 
     @Override
     public void updateCustomDashboard(String content) {
-
+        //intentionally blank - must implement all methods from interface
     }
 
     private void init() {

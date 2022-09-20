@@ -262,7 +262,7 @@ public class CounterfactualParameterValidation {
 
     private static class StructureHolder<T> {
 
-        private final TypedValue.Kind kind;
+        private final BaseTypedValue.Kind kind;
         private final String name;
         private final String typeRef;
         private final T original;

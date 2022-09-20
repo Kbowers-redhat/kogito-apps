@@ -29,6 +29,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.kie.kogito.explainability.api.BaseExplainabilityRequest;
 import org.kie.kogito.explainability.api.BaseExplainabilityResult;
 import org.kie.kogito.explainability.api.CounterfactualExplainabilityRequest;
 import org.kie.kogito.explainability.api.CounterfactualExplainabilityResult;
@@ -293,7 +294,7 @@ public class TrustyServiceImpl implements TrustyService {
     public List<CounterfactualExplainabilityRequest> getCounterfactualRequests(String executionId) {
         Storage<String, CounterfactualExplainabilityRequest> storage = storageService.getCounterfactualRequestStorage();
 
-        AttributeFilter<String> filterExecutionId = QueryFilterFactory.equalTo(CounterfactualExplainabilityRequest.EXECUTION_ID_FIELD, executionId);
+        AttributeFilter<String> filterExecutionId = QueryFilterFactory.equalTo(BaseExplainabilityRequest.EXECUTION_ID_FIELD, executionId);
         List<CounterfactualExplainabilityRequest> counterfactuals = storage.query().filter(Collections.singletonList(filterExecutionId)).execute();
 
         return List.copyOf(counterfactuals);
@@ -323,7 +324,7 @@ public class TrustyServiceImpl implements TrustyService {
     }
 
     private <T> List<T> getCounterfactualsFromStorage(String executionId, String counterfactualId, Storage<String, T> storage) {
-        AttributeFilter<String> filterExecutionId = QueryFilterFactory.equalTo(CounterfactualExplainabilityRequest.EXECUTION_ID_FIELD, executionId);
+        AttributeFilter<String> filterExecutionId = QueryFilterFactory.equalTo(BaseExplainabilityRequest.EXECUTION_ID_FIELD, executionId);
         AttributeFilter<String> filterCounterfactualId = QueryFilterFactory.equalTo(CounterfactualExplainabilityRequest.COUNTERFACTUAL_ID_FIELD, counterfactualId);
         List<AttributeFilter<?>> filters = List.of(filterExecutionId, filterCounterfactualId);
         List<T> result = storage.query().filter(filters).execute();

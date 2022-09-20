@@ -28,4 +28,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 public abstract class CounterfactualDomain {
 
     public static final String TYPE_FIELD = "type";
+
+    private CounterfactualDomain() {
+        throw new IllegalStateException("Utility class");
+    }
 }

@@ -62,7 +62,7 @@ public class CounterfactualExplainerServiceHandler extends BaseExplainerServiceH
     public CounterfactualExplainabilityResult getExplainabilityResultById(String executionId) {
         Storage<String, CounterfactualExplainabilityResult> storage = storageService.getCounterfactualResultStorage();
 
-        AttributeFilter<String> filterExecutionId = QueryFilterFactory.equalTo(CounterfactualExplainabilityResult.EXECUTION_ID_FIELD, executionId);
+        AttributeFilter<String> filterExecutionId = QueryFilterFactory.equalTo(BaseExplainabilityResult.EXECUTION_ID_FIELD, executionId);
         List<CounterfactualExplainabilityResult> counterfactuals = storage.query().filter(Collections.singletonList(filterExecutionId)).execute();
 
         if (Objects.isNull(counterfactuals) || counterfactuals.isEmpty()) {

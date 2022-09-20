@@ -57,6 +57,10 @@ import io.vertx.core.json.JsonObject;
 
 public class ConversionUtils {
 
+    private ConversionUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
     ////////////////////////////
     // TO EXPLAINABILITY MODEL
     ////////////////////////////

@@ -23,6 +23,10 @@ public class JsonUtils {
 
     private static final ObjectMapper MAPPER = new ObjectMapper().registerModule(new JavaTimeModule());
 
+    private JsonUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static ObjectMapper getMapper() {
         return MAPPER;
     }

@@ -43,7 +43,7 @@ public class KogitoServiceRandomPortTestResource implements TestResource {
 
     @Override
     public void stop() {
-
+        //intentionally blank - must implement all methods from interface
     }
 
     @Override
